@@ -8,6 +8,7 @@ with open('reviews.txt', 'r') as f:
 			print(len(data))
 print('檔案讀取完了, 總共有', len(data), '筆資料')
 
+
 # 算留言平均長度
 sum_len = 0
 for message in data:
@@ -23,17 +24,39 @@ for d in data:
 print('一共有', len(new), '筆留言長度<100')
 print(new[1])
 
-# 找出包含'good'的留言
-#good = []
-#for d in data:
-#	if 'good' in d:
-#		good.append(d)
-#print('一共有', len(good), '筆留言提到good')
-#print(good[0])
-
 # 清單快寫法  (運算 變數 清單 篩選條件)
 good = [d for d in data if 'good' in d]
-print(good)
+print('一共有', len(good), '筆留言提到good')
 
-bad = ['bad' in d for d in data]
-print(bad)
+
+
+# 文字計數
+wc = {}  # word_count
+for d in data:
+	words = d.split()
+	for word in words:
+		if word in wc:
+			wc[word] += 1
+		else:
+			wc[word] = 1 # 新增key
+
+for word in wc:
+	if wc[word] > 1000000:
+		print(word, wc[word])
+
+print(len(wc))
+print(wc['Allen'])
+
+while True:
+	word = input('請問你想查什麼字:')
+	if word == 'q':
+		print('感謝使用本查詢功能')
+		break
+	if word in wc:
+		print(word, '出現過的次數為:', wc[word])
+	else:
+		print('這個字沒有出現過')
+
+
+
+
